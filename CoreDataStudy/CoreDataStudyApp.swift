@@ -13,8 +13,22 @@ struct CoreDataStudyApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack {
+                TabView {
+                    CatList()
+                        .tabItem {
+                            Label("List", systemImage: "list.bullet.clipboard")
+                        }
+                    
+                    CatSelectorView()
+                        
+                        .tabItem {
+                            Label("Selector", systemImage: "cursorarrow")
+                        }
+                    
+                }
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            }
         }
     }
 }

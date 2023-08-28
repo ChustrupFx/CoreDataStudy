@@ -14,8 +14,9 @@ struct PersistenceController {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
         for _ in 0..<10 {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
+            let newItem = Sound(context: viewContext)
+            newItem.name = "Test"
+            newItem.url = "http://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/pause.wav"
         }
         do {
             try viewContext.save()
@@ -31,7 +32,7 @@ struct PersistenceController {
     let container: NSPersistentContainer
 
     init(inMemory: Bool = false) {
-        container = NSPersistentContainer(name: "CoreDataStudy")
+        container = NSPersistentContainer(name: "soundpad_ios")
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }

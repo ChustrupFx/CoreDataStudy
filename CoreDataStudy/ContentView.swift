@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import Alamofire
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -40,10 +41,19 @@ struct ContentView: View {
             }
             Text("Select an item")
         }
+        .onAppear {
+            for item in items {
+                print(item)
+            }
+        }
     }
+    
+    
+    
 
     private func addItem() {
         withAnimation {
+            
             let newItem = Item(context: viewContext)
             newItem.timestamp = Date()
 
@@ -61,7 +71,6 @@ struct ContentView: View {
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             offsets.map { items[$0] }.forEach(viewContext.delete)
-
             do {
                 try viewContext.save()
             } catch {
